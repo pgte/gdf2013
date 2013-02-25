@@ -1,4 +1,4 @@
-function TodosCtrl($scope, websocket) {
+function TodosCtrl($scope, websocket, $location) {
   $scope.newTodo = {};
   $scope.todos = [];
 
@@ -77,5 +77,26 @@ function TodosCtrl($scope, websocket) {
     server.emit('list');
 
   });
+
+
+  /// Search and filter
+
+  $scope.setSearch =
+  function setSearch(state) {
+    $location.search('state', state)
+  };
+
+  $scope.resetSearch =
+  function resetSearch() {
+    $scope.setSearch(null);
+  };
+
+  function captureStateFilter() {
+    $scope.stateFilter = $location.search().state;
+  }
+
+  $scope.location = $location;
+  $scope.$watch('location.search().state', captureStateFilter);
+
 
 }

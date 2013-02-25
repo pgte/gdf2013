@@ -70,6 +70,7 @@
           </tr>
           
           <tr ng-repeat="todo in todos"
+              ng-show="! stateFilter || stateFilter == todo.state"
               jqui-drag-start="dragStart(todo)"
               jqui-drop-accept="dropAccept($token, todo)"
               jqui-drop-commit="dropCommit($token, todo)"
@@ -87,11 +88,11 @@
         <tfoot>
           <tr>
             <td colspan="3">
-              <a>All</a>
+              <a ng-click="resetSearch()">All</a>
                 &middot;
-              <a>Pending</a>
+              <a ng-click="setSearch('pending')">Pending</a>
                 &middot;
-              <a>Completed</a>
+              <a ng-click="setSearch('done')">Completed</a>
             </td>
         </tfoot>
         
