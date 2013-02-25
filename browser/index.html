@@ -39,7 +39,7 @@
       </div>
     </div>
     
-    <div id="error" class="container">
+    <div id="error" class="container" ng-show="error" ng-cloak>
       <div class="alert alert-error">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <p class="message">{{error}}</p>
@@ -47,16 +47,6 @@
     </div>
     
     <div class="container" ng-controller="TodosCtrl">
-      <h1>Items in list &quot;{{list.name}}&quot;</h1>
-
-      <p>(Belongs to {{list.user}})</p>
-
-      <p><a href="/lists">Back to lists</a></p>
-
-      <!-- Share -->
-      <div src="'/partials/lists/share.html'"></div>
-      <!-- /Share -->
-
       <form id="newtodo" name="form" class="form-inline" novalidate>
         <input ng-model="newTodo.description" type="text" id="description" placeholder="What needs to be done?" name="description" required autocomplete="off">
         <button type="submit" class="btn" ng-click="create()">Create</button>
@@ -74,7 +64,7 @@
         
         <tbody>
 
-          <tr>
+          <tr ng-show="todos.length < 1">
             <td colspan="3">No items found</td>
           </tr>
           
