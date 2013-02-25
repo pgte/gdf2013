@@ -75,7 +75,7 @@
               jqui-drop-commit="dropCommit($token, todo)"
               jqui-drag-helper="clone">
             <td class="state">
-              <a>
+              <a ng-click="toggle(todo)">
                 <i class="icon-search {{todo.state}}"></i>
               </a>
             </td>

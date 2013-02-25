@@ -41,6 +41,31 @@ function TodosCtrl($scope, websocket) {
     });
 
 
+    /// Toggle and Update
+
+    $scope.toggle =
+    function toggle(todo) {
+      console.log('toggle', todo.state);
+      todo.state = todo.state == 'pending' ? 'done' : 'pending';
+      console.log('toggle', todo.state);
+      server.emit('update', todo);
+    };
+
+    server.on('update', function(_todo) {
+      console.log('update:', _todo.state);
+      var found = -1;
+      for(var i = 0; i < $scope.todos.length && found == -1; i++) {
+        todo = $scope.todos[i];
+        if (todo && todo._id == _todo._id) found = i;
+      }
+      if (found >= 0) {
+        $scope.todos[found] = _todo;
+        $scope.$digest();
+      }
+
+    });
+
+
     /// List
 
     server.on('list', function(todos) {

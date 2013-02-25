@@ -34,4 +34,17 @@ shoe(function(stream) {
     client.emit('list', todos);
   });
 
+  client.on('update', function(_todo) {
+    var found = -1, todo, i;
+    for(i = 0; i < todos.length && found == -1; i++) {
+      todo = todos[i];
+      if (todo._id == _todo._id) found = i;
+    }
+    if (found < 0) return client.emit('err', 'Couldn\'t find that todo item');
+    todos[found] = _todo;
+
+    client.emit('update', _todo);
+
+  });
+
 });
