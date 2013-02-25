@@ -11,6 +11,11 @@ var serveStatic = ecstatic(__dirname + '/../browser');
 server.on('request', serveStatic);
 
 
+/// Websockets
+
+var websocketServer = require('./websocket');
+websocketServer.install(server, '/websocket');
+
 /// Listen
 
 var port = 8080;

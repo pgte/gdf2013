@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="ToodooApp">
   <head>
     <meta charset="utf-8">
     <title>TooDoo - {{messages.title}}</title>
@@ -46,10 +46,11 @@
       </div>
     </div>
     
-    <div class="container">
+    <div class="container" ng-controller="TodosCtrl">
+
       <form id="newtodo" name="form" class="form-inline" novalidate>
-        <input type="text" id="description" placeholder="What needs to be done?" name="description" required autocomplete="off">
-        <button type="submit" class="btn" >Create</button>
+        <input ng-model="newTodo.description" type="text" id="description" placeholder="What needs to be done?" name="description" required autocomplete="off">
+        <button type="submit" class="btn" ng-click="create()">Create</button>
       </form>
 
       <table id="todos" class="table table-striped">
@@ -68,7 +69,8 @@
             <td colspan="3">No items found</td>
           </tr>
           
-          <tr jqui-drag-start="dragStart(todo)"
+          <tr ng-repeat="todo in todos"
+              jqui-drag-start="dragStart(todo)"
               jqui-drop-accept="dropAccept($token, todo)"
               jqui-drop-commit="dropCommit($token, todo)"
               jqui-drag-helper="clone">
@@ -101,5 +103,7 @@
     <script src="/js/lib/angular.min.js"></script>
     <script src="/js/lib/jquery-ui.min.js"></script>
     <script src="/js/lib/jquery-ui-dnd-ng.js"></script>
+    <script src="/js/app-bundle.js"></script>
+    <script src="/js/todos.js"></script>
   </body>
 </html>

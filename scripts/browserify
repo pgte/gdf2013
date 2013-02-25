@@ -1,0 +1,6 @@
+#!/bin/bash
+
+node_modules/.bin/browserify -wvd \
+  browser/js/app.js \
+  browser/js/websocket.js \
+  -o browser/js/app-bundle.js
