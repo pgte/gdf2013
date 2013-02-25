@@ -1,0 +1,9 @@
+{
+  "name": "Toodoo",
+  "private": true,
+  "version": "0.1.0",
+  "dependencies": {
+    "ecstatic": "*",
+    "browserify": "1.x.x"
+  }
+}
