@@ -18,7 +18,7 @@ websocketServer.install(server, '/websocket');
 
 /// Listen
 
-var port = 8080;
-server.listen(8080, function() {
+var port = 8081;
+server.listen(port, function() {
   console.log('HTTP server listening on port %d', port);
 });

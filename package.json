@@ -7,6 +7,7 @@
     "browserify": "1.x.x",
     "reconnect": "*",
     "shoe": "*",
-    "duplex-emitter": "*"
+    "duplex-emitter": "*",
+    "node-uuid": "*"
   }
 }
