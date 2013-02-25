@@ -47,18 +47,8 @@
     </div>
     
     <div class="container">
-      <h1>Items in list &quot;{{list.name}}&quot;</h1>
-
-      <p>(Belongs to {{list.user}})</p>
-
-      <p><a href="/lists">Back to lists</a></p>
-
-      <!-- Share -->
-      <div src="'/partials/lists/share.html'"></div>
-      <!-- /Share -->
-
       <form id="newtodo" name="form" class="form-inline" novalidate>
-        <input  type="text" id="description" placeholder="What needs to be done?" name="description" required autocomplete="off">
+        <input type="text" id="description" placeholder="What needs to be done?" name="description" required autocomplete="off">
         <button type="submit" class="btn" >Create</button>
       </form>
 
