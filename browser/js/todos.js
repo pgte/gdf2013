@@ -2,6 +2,12 @@ function TodosCtrl($scope, websocket, $location) {
   $scope.newTodo = {};
   $scope.todos = [];
 
+  function sort() {
+    $scope.todos.sort(function(a, b) {
+      return a.order - b.order;
+    });
+  }
+
   websocket.connect($scope, function(server) {
 
     server.on('err', function(err) {
@@ -60,10 +66,44 @@ function TodosCtrl($scope, websocket, $location) {
       }
       if (found >= 0) {
         $scope.todos[found] = _todo;
+        sort();
         $scope.$digest();
       }
 
     });
+
+
+    /// Drag and Drop
+
+    $scope.dragStart = function(item) {
+      return item;
+    };
+    
+    $scope.dropAccept = function(item, target) {
+      return item._id != target._id;
+    };
+
+    $scope.dropCommit = function(item, target) {
+
+      // Reorder the todo item
+      var targetPlace = $scope.todos.indexOf(target);
+
+      // Shift all the next by 2
+      var todo;
+      for(var i = targetPlace; i < $scope.todos.length; i++) {
+        todo = $scope.todos[i];
+        if (todo._id != item._id) {
+          todo.order += 2;
+          server.emit('update', todo);        
+        }
+      }
+      
+      // calculate order of dropped item
+      item.order = target.order - 1;
+
+      // save to the server
+      server.emit('update', item);
+    };
 
 
     /// List
@@ -97,6 +137,5 @@ function TodosCtrl($scope, websocket, $location) {
 
   $scope.location = $location;
   $scope.$watch('location.search().state', captureStateFilter);
-
 
 }

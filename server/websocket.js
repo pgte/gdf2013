@@ -5,6 +5,12 @@ var hub = require('./hub');
 
 var todos = [];
 
+function sort() {
+  todos.sort(function(a, b) {
+    return a.order - b.order;
+  });
+}
+
 module.exports =
 shoe(function(stream) {
   var client = duplexEmitter(stream);
@@ -12,6 +18,7 @@ shoe(function(stream) {
   client.on('new', function(todo) {
     todo.state = 'pending';
     todo._id = uuid.v4();
+    todo.order = Date.now();
 
     todos.push(todo);
     hub.emit('new', todo);
@@ -36,6 +43,7 @@ shoe(function(stream) {
   });
 
   client.on('update', function(_todo) {
+    console.log('update:', _todo);
     var found = -1, todo, i;
     for(i = 0; i < todos.length && found == -1; i++) {
       todo = todos[i];
@@ -43,6 +51,8 @@ shoe(function(stream) {
     }
     if (found < 0) return client.emit('err', 'Couldn\'t find that todo item');
     todos[found] = _todo;
+
+    sort();
 
     hub.emit('update', _todo);
 
