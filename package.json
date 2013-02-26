@@ -8,6 +8,7 @@
     "reconnect": "*",
     "shoe": "*",
     "duplex-emitter": "*",
-    "node-uuid": "*"
+    "node-uuid": "*",
+    "propagate": "*"
   }
 }

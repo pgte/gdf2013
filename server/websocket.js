@@ -1,6 +1,7 @@
 var shoe = require('shoe');
 var duplexEmitter = require('duplex-emitter');
 var uuid = require('node-uuid');
+var hub = require('./hub');
 
 var todos = [];
 
@@ -13,7 +14,7 @@ shoe(function(stream) {
     todo._id = uuid.v4();
 
     todos.push(todo);
-    client.emit('new', todo);
+    hub.emit('new', todo);
   });
 
   client.on('remove', function(todoId) {
@@ -27,11 +28,11 @@ shoe(function(stream) {
     
     todos.splice(found, 1);
 
-    client.emit('remove', todoId);
+    hub.emit('remove', todoId);
   });
 
   client.on('list', function() {
-    client.emit('list', todos);
+    hub.emit('list', todos);
   });
 
   client.on('update', function(_todo) {
@@ -43,8 +44,10 @@ shoe(function(stream) {
     if (found < 0) return client.emit('err', 'Couldn\'t find that todo item');
     todos[found] = _todo;
 
-    client.emit('update', _todo);
+    hub.emit('update', _todo);
 
   });
+
+  hub.connect(client, stream);
 
 });
