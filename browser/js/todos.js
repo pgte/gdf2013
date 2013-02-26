@@ -11,7 +11,7 @@ function TodosCtrl($scope, websocket, $location) {
   websocket.connect($scope, function(server) {
 
     server.on('err', function(err) {
-      $scope.error = err;
+      $scope.$emit('error', err);
     });
 
     $scope.create =

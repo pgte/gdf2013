@@ -39,7 +39,7 @@
       </div>
     </div>
     
-    <div id="error" class="container" ng-show="error" ng-cloak>
+    <div id="error" class="container" ng-show="error" ng-cloak ng-controller="ErrorCtrl">
       <div class="alert alert-error">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <p class="message">{{error}}</p>
@@ -105,6 +105,7 @@
     <script src="/js/lib/jquery-ui.min.js"></script>
     <script src="/js/lib/jquery-ui-dnd-ng.js"></script>
     <script src="/js/app-bundle.js"></script>
+    <script src="/js/error.js"></script>
     <script src="/js/todos.js"></script>
   </body>
 </html>
