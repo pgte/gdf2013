@@ -19,7 +19,23 @@ angular.module('ToodooApp').
 
         callback(server);
 
-      }).connect('/websocket');
+      }).connect('/websocket');;
+
+      var disconnected = false;
+
+      r.on('reconnect', function(attempts, delay) {
+        console.log('reconnected');
+        scope.$emit('error', 'Disconnected from Server. Reconnecting (' + attempts + ' atempts already)');
+      });
+
+      r.on('connect', function() {
+        disconnected = false;
+        console.log('connected');
+        scope.$emit('error', '');
+      });
+
+      
+
     }
 
     return {

@@ -3,6 +3,10 @@ function ErrorCtrl($scope, $rootScope) {
 
   $rootScope.$on('error', function(event, err) {
     $scope.error = err;
-    $scope.$digest();
+    try {
+      $scope.$digest();
+    } catch(err) {
+      /// do nothing, as angular may be initializing
+    }
   });
 }
